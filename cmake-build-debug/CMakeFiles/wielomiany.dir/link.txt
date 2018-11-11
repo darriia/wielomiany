@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/wielomiany.dir/main.cpp.o  -o wielomiany 
