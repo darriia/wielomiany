@@ -16,34 +16,54 @@ Polynomial::~Polynomial() {
     cout << "Deleted Polynomial" << endl;
 }
 
-ostream &operator<<(ostream &output, Polynomial &w) {
-    switch(w.degree){
+ostream &operator<<(ostream &output, Polynomial &p) {
+    switch(p.degree){
         case 0:
-            output << w.e;
+            output << p.e;
             break;
         case 1:
-            output << w.d << "x"
-            << ((w.e > 0) ? "+" + to_string(w.e): "");
+            output << p.d << "x"
+            << ((p.e > 0) ? "+" + to_string(p.e): "");
             break;
         case 2:
-            output << w.c << "x^2"
-            << ((w.d > 0) ? "+" + to_string(w.d) + "x" : "")
-            << ((w.e > 0) ? "+" + to_string(w.e): "");
+            output << p.c << "x^2"
+            << ((p.d > 0) ? "+" + to_string(p.d) + "x" : "")
+            << ((p.e > 0) ? "+" + to_string(p.e): "");
             break;
         case 3:
-            output << w.b << "x^3"
-            << ((w.c > 0) ? "+" + to_string(w.c) + "x^2" : "")
-            << ((w.d > 0) ? "+" + to_string(w.d)+ "x" : "")
-            << ((w.e > 0) ? "+" + to_string(w.e): "");
+            output << p.b << "x^3"
+            << ((p.c > 0) ? "+" + to_string(p.c) + "x^2" : "")
+            << ((p.d > 0) ? "+" + to_string(p.d)+ "x" : "")
+            << ((p.e > 0) ? "+" + to_string(p.e): "");
             break;
         case 4:
-            output << w.a << "x^4"
-            << ((w.b > 0) ? "+" + to_string(w.b)+ "x^3" : "")
-            << ((w.c > 0) ? "+" + to_string(w.c)+ "x^2" : "")
-            << ((w.d > 0) ? "+" + to_string(w.d)+ "x" : "")
-            << ((w.e > 0) ? "+" + to_string(w.e): "");
+            output << p.a << "x^4"
+            << ((p.b > 0) ? "+" + to_string(p.b)+ "x^3" : "")
+            << ((p.c > 0) ? "+" + to_string(p.c)+ "x^2" : "")
+            << ((p.d > 0) ? "+" + to_string(p.d)+ "x" : "")
+            << ((p.e > 0) ? "+" + to_string(p.e): "");
             break;
         default: output << "";
     }
     return output;
 }
+
+bool operator ==(Polynomial& p1, Polynomial& p2){
+    if(p1.degree != p2.degree) return false;
+    return p1.e == p2.e
+           && p1.d == p2.d
+           && p1.c == p2.c
+           && p1.b == p2.b
+           && p1.a == p2.a;
+}
+
+bool operator !=(Polynomial& p1, Polynomial& p2){
+    if(p1.degree != p2.degree) return true;
+    return p1.e != p2.e
+           || p1.d != p2.d
+           || p1.c != p2.c
+           || p1.b != p2.b
+           || p1.a != p2.a;
+}
+
+

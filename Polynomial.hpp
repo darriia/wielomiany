@@ -14,6 +14,8 @@ public:
     Polynomial(int degree, int a, int b, int c, int d, int e);
     ~Polynomial();
     friend ostream& operator <<(ostream&, Polynomial&);
+    friend bool operator ==(Polynomial&, Polynomial&);
+    friend bool operator !=(Polynomial&, Polynomial&);
 };
 
 
