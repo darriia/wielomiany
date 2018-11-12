@@ -8,14 +8,19 @@ using namespace std;
 
 
 class Polynomial {
-    int a, b, c, d, e;
-    int degree;
 public:
-    Polynomial(int degree, int a, int b, int c, int d, int e);
+    int degree, a, b, c, d, e;
+
+    Polynomial(int a, int b, int c, int d, int e);
     ~Polynomial();
+    int calculateDegree();
     friend ostream& operator <<(ostream&, Polynomial&);
     friend bool operator ==(Polynomial&, Polynomial&);
     friend bool operator !=(Polynomial&, Polynomial&);
+    friend Polynomial operator +(Polynomial&, Polynomial&);
+    friend Polynomial operator -(Polynomial&, Polynomial&);
+    friend void operator +=(Polynomial&, Polynomial&);
+    friend void operator -=(Polynomial&, Polynomial&);
 };
 
 
