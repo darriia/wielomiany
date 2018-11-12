@@ -3,11 +3,15 @@
 #include <cmath>
 #include "Polynomial.hpp"
 
-using std::cout;
-using std::cin;
-using std::endl;
-using std::vector;
+using namespace std;
 
+bool isAllIntegers(const vector<float> &values){
+    for (float value: values){
+        if (value - (int)(value / 1) != 0)
+            return false;
+    }
+    return true;
+}
 
 int main() {
 
@@ -68,6 +72,42 @@ int main() {
     p16 -= p17;
     cout << p16 << " degree: " << p16.degree << endl;
     cout << p16.a << " " << p16.b << " " << p16.c << " " << p16.d << " " << p16.e << endl;
+
+    // Test differentiation
+    Polynomial p18(0, 0, 0, 1, 1);
+    Polynomial diff = p18.differentiation();
+    cout << diff << " degree: " << diff.degree << endl;
+    cout << diff.a << " " << diff.b << " " << diff.c << " " << diff.d << " " << diff.e << endl;
+
+
+    while (true) {
+        float inpA, inpB, inpC, inpD, inpE;
+        cout << "Podaj a, b, c, d, e: " << endl;
+        cin >> inpA >> inpB >> inpC >> inpD >> inpE;
+        if (cin.fail()) {
+            cout << "Podałeś nieprawidłowe dane. Spróbuj jeszcze raz" << endl;
+            cin.clear();
+            continue;
+
+        } else {
+            vector<float> inputVector = vector<float>{inpA, inpB, inpC, inpD, inpE};
+            if (!isAllIntegers(inputVector)){
+                cout << "Podałeś nieprawidłowe dane. Spróbuj jeszcze raz <no floats>" << endl;
+                cin.clear();
+                continue;
+            }
+
+            int a = (int) (inpA);
+            int b = (int) (inpB);
+            int c = (int) (inpC);
+            int d = (int) (inpD);
+            int e = (int) (inpE);
+            Polynomial p19(a, b, c, d, e);
+            cout << p19 << " degree: " << p19.degree << endl;
+            cout << p19.a << " " << p19.b << " " << p19.c << " " << p19.d << " " << p19.e << endl;
+            break;
+        }
+    }
 
     return 0;
 }

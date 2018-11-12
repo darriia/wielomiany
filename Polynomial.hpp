@@ -13,14 +13,16 @@ public:
 
     Polynomial(int a, int b, int c, int d, int e);
     ~Polynomial();
+    Polynomial differentiation();
     int calculateDegree();
-    friend ostream& operator <<(ostream&, Polynomial&);
-    friend bool operator ==(Polynomial&, Polynomial&);
-    friend bool operator !=(Polynomial&, Polynomial&);
     friend Polynomial operator +(Polynomial&, Polynomial&);
     friend Polynomial operator -(Polynomial&, Polynomial&);
+    friend bool operator ==(Polynomial&, Polynomial&);
+    friend bool operator !=(Polynomial&, Polynomial&);
     friend void operator +=(Polynomial&, Polynomial&);
     friend void operator -=(Polynomial&, Polynomial&);
+    friend ostream& operator <<(ostream&, Polynomial&);
+
 };
 
 

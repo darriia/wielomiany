@@ -25,11 +25,20 @@ Polynomial::Polynomial(int a_, int b_, int c_, int d_, int e_) {
 }
 
 int Polynomial::calculateDegree() {
-    if(a==0 && b==0 && c==0 && d==0) return 0;
-    if(a==0 && b==0 && c==0 ) return 1;
-    if(a==0 && b==0 ) return 2;
-    if(a==0 ) return 3;
+    if(a == 0 && b == 0 && c == 0 && d == 0) return 0;
+    if(a == 0 && b == 0 && c == 0 ) return 1;
+    if(a == 0 && b == 0 ) return 2;
+    if(a == 0) return 3;
     return 4;
+}
+
+Polynomial Polynomial::differentiation() {
+    int a_ = 0;
+    int b_ = 4 * a;
+    int c_ = 3 * b;
+    int d_ = 2 * c;
+    int e_ = d;
+    return Polynomial(a_, b_, c_, d_, e_);
 }
 
 Polynomial::~Polynomial() {
@@ -39,7 +48,7 @@ Polynomial::~Polynomial() {
 ostream &operator<<(ostream &output, Polynomial &p) {
     switch(p.degree){
         case 0:
-            output << stringify(p.e);
+            output << p.e;
             break;
         case 1:
             output << stringify(p.d) << "x"
@@ -57,7 +66,6 @@ ostream &operator<<(ostream &output, Polynomial &p) {
             << ((p.e != 0) ? stringify(p.e): "");
             break;
         case 4:
-
             output << stringify(p.a) << "x^4"
             << ((p.b != 0) ? stringify(p.b) + "x^3" : "")
             << ((p.c != 0) ? stringify(p.c) + "x^2" : "")
