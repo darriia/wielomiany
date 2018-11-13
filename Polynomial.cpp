@@ -3,15 +3,27 @@
 using namespace std;
 
 
-string stringify(int value){
-    string result;
+string stringify(int value, bool without_x=false){
+    /* Pomocnicza funkcja, która służy do zamiany wartości liczbowej na ciąg znaków.
+     * Zamienia zapis 1 -> + oraz -1 -> -
+     */
     string valueString = to_string(value);
-    if (value == 1)
-        return "+";
-    if (value == -1)
-        return "-";
+
+    if (value == 1){
+        valueString = "+";
+        if (without_x)
+            valueString += "1";
+    }
+
+    if (value == -1){
+        valueString = "-";
+        if (without_x)
+            valueString += "1";
+    }
+
     if (value > 1)
-        return "+" + valueString;
+        valueString =  "+" + valueString;
+
     return valueString;
 }
 
@@ -25,6 +37,7 @@ Polynomial::Polynomial(int a_, int b_, int c_, int d_, int e_) {
 }
 
 int Polynomial::calculateDegree() {
+    /* Funkcja wyciąga stopień z wielomianu. */
     if(a == 0 && b == 0 && c == 0 && d == 0) return 0;
     if(a == 0 && b == 0 && c == 0 ) return 1;
     if(a == 0 && b == 0 ) return 2;
@@ -33,6 +46,7 @@ int Polynomial::calculateDegree() {
 }
 
 Polynomial Polynomial::differentiation() {
+    /* Funkcja liczy różniczkę wielomianu. */
     int a_ = 0;
     int b_ = 4 * a;
     int c_ = 3 * b;
@@ -46,31 +60,32 @@ Polynomial::~Polynomial() {
 }
 
 ostream &operator<<(ostream &output, Polynomial &p) {
+    /* Przeciążenie operatora, który wyświetla wielomian.*/
     switch(p.degree){
         case 0:
             output << p.e;
             break;
         case 1:
             output << stringify(p.d) << "x"
-            << ((p.e != 0) ? stringify(p.e): "");
+            << ((p.e != 0) ? stringify(p.e, true): "");
             break;
         case 2:
             output << stringify(p.c) << "x^2"
             << ((p.d != 0) ? stringify(p.d) + "x" : "")
-            << ((p.e != 0) ? stringify(p.e): "");
+            << ((p.e != 0) ? stringify(p.e, true): "");
             break;
         case 3:
             output << stringify(p.b) << "x^3"
             << ((p.c != 0) ? stringify(p.c) + "x^2" : "")
             << ((p.d != 0) ? stringify(p.d) + "x" : "")
-            << ((p.e != 0) ? stringify(p.e): "");
+            << ((p.e != 0) ? stringify(p.e, true): "");
             break;
         case 4:
             output << stringify(p.a) << "x^4"
             << ((p.b != 0) ? stringify(p.b) + "x^3" : "")
             << ((p.c != 0) ? stringify(p.c) + "x^2" : "")
             << ((p.d != 0) ? stringify(p.d) + "x" : "")
-            << ((p.e != 0) ? stringify(p.e): "");
+            << ((p.e != 0) ? stringify(p.e, true): "");
             break;
         default: output << "";
     }
@@ -78,6 +93,7 @@ ostream &operator<<(ostream &output, Polynomial &p) {
 }
 
 bool operator ==(Polynomial& p1, Polynomial& p2){
+    /* Przeciążenie operatora, które porównuje wielomiany.*/
     if(p1.degree != p2.degree) return false;
     return p1.e == p2.e
            && p1.d == p2.d
@@ -87,6 +103,7 @@ bool operator ==(Polynomial& p1, Polynomial& p2){
 }
 
 bool operator !=(Polynomial& p1, Polynomial& p2){
+    /* Przeciążenie operatora, który porównuje wielomiany.*/
     if(p1.degree != p2.degree) return true;
     return p1.e != p2.e
            || p1.d != p2.d
@@ -96,6 +113,7 @@ bool operator !=(Polynomial& p1, Polynomial& p2){
 }
 
 Polynomial operator +(Polynomial& p1, Polynomial& p2){
+    /* Przeciążenie operatora, który dodaje wielomiany.*/
     int a = p1.a + p2.a;
     int b = p1.b + p2.b;
     int c = p1.c + p2.c;
@@ -106,6 +124,7 @@ Polynomial operator +(Polynomial& p1, Polynomial& p2){
 }
 
 Polynomial operator -(Polynomial& p1, Polynomial& p2){
+    /* Przeciążenie operatora, który odejmuje wielomiany.*/
     int a = p1.a - p2.a;
     int b = p1.b - p2.b;
     int c = p1.c - p2.c;
@@ -115,6 +134,7 @@ Polynomial operator -(Polynomial& p1, Polynomial& p2){
 }
 
 void operator +=(Polynomial& p1, Polynomial& p2){
+    /* Przeciążenie operatora, który zwiększa wielomian o inny.*/
     p1.a += p2.a;
     p1.b += p2.b;
     p1.c += p2.c;
@@ -124,6 +144,7 @@ void operator +=(Polynomial& p1, Polynomial& p2){
 }
 
 void operator -=(Polynomial& p1, Polynomial& p2){
+    /* Przeciążenie operatora, który zmniejsza wielomian o inny.*/
     p1.a -= p2.a;
     p1.b -= p2.b;
     p1.c -= p2.c;

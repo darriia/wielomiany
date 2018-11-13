@@ -13,8 +13,7 @@ bool isAllIntegers(const vector<float> &values){
     return true;
 }
 
-int main() {
-
+void runDebug() {
     // Test printing & degree calculation
     Polynomial p0( 0, 0, 0, 0, 1);
     cout << p0 << " degree: " << p0.degree << endl;
@@ -78,15 +77,71 @@ int main() {
     Polynomial diff = p18.differentiation();
     cout << diff << " degree: " << diff.degree << endl;
     cout << diff.a << " " << diff.b << " " << diff.c << " " << diff.d << " " << diff.e << endl;
+}
 
+void testPolynomials(Polynomial p1, Polynomial p2) {
+    // Test printing & degree calculation
+    cout << "Wypisanie" << endl
+         << "========================" << endl;
+    cout << p1 << " degree: " << p1.degree << endl;
+    cout << p2 << " degree: " << p2.degree << endl;
 
-    while (true) {
+    // Test comparisons ==, !=
+    cout << "Porównywanie" << endl
+         << "========================" << endl;
+    if (p1 == p2)
+        cout << "p1==p2" << endl;
+    if (p1 != p2)
+        cout << "p1!=p2" << endl;
+
+    // Test math operations -, +, -=, +=
+    cout << "Operacje matematyczne" << endl
+         << "========================" << endl;
+    cout << "Dodawanie:" << endl;
+    Polynomial sumResult = p1 + p2;
+    cout << sumResult << " degree: " << sumResult.degree << endl;
+
+    cout << "Odejmowanie:" << endl;
+    Polynomial subResult = p1 - p2;
+    cout << subResult << " degree: " << subResult.degree << endl;
+
+    cout << "Zwiększanie:" << endl;
+    p1 += p2;
+    cout << p1 << " degree: " << p1.degree << endl;
+    cout << p1.a << " " << p1.b << " " << p1.c << " " << p1.d << " " << p1.e << endl;
+
+    cout << "Zmniejszanie:" << endl;
+    p1 -= p2;
+    cout << p1 << " degree: " << p1.degree << endl;
+    cout << p1.a << " " << p1.b << " " << p1.c << " " << p1.d << " " << p1.e << endl;
+
+    // Test differentiation
+    cout << "Rozniczkowanie" << endl
+         << "========================" << endl;
+    Polynomial diff1 = p1.differentiation();
+    cout << diff1 << " degree: " << diff1.degree << endl;
+    cout << diff1.a << " " << diff1.b << " " << diff1.c << " " << diff1.d << " " << diff1.e << endl;
+    cout << "------------------------" << endl;
+    Polynomial diff2 = p1.differentiation();
+    cout << diff2 << " degree: " << diff2.degree << endl;
+    cout << diff2.a << " " << diff2.b << " " << diff2.c << " " << diff2.d << " " << diff2.e << endl;
+}
+
+int main() {
+    // runDebug();
+    int i = 0;
+    vector<Polynomial> polynomials = {};
+
+    cout << "Podaj wspolczynniki wielomianow, gdzie: a*x^4 + b*x^3 + c*x^2 + d*x + e." << endl;
+
+    while (i < 2) {
         float inpA, inpB, inpC, inpD, inpE;
         cout << "Podaj a, b, c, d, e: " << endl;
         cin >> inpA >> inpB >> inpC >> inpD >> inpE;
         if (cin.fail()) {
             cout << "Podałeś nieprawidłowe dane. Spróbuj jeszcze raz" << endl;
             cin.clear();
+            cin.ignore(1000, '\n');
             continue;
 
         } else {
@@ -94,20 +149,20 @@ int main() {
             if (!isAllIntegers(inputVector)){
                 cout << "Podałeś nieprawidłowe dane. Spróbuj jeszcze raz <no floats>" << endl;
                 cin.clear();
+                cin.ignore(1000, '\n');
                 continue;
             }
-
             int a = (int) (inpA);
             int b = (int) (inpB);
             int c = (int) (inpC);
             int d = (int) (inpD);
             int e = (int) (inpE);
-            Polynomial p19(a, b, c, d, e);
-            cout << p19 << " degree: " << p19.degree << endl;
-            cout << p19.a << " " << p19.b << " " << p19.c << " " << p19.d << " " << p19.e << endl;
-            break;
+            polynomials.emplace_back(Polynomial(a, b, c, d, e));
+            i += 1;
         }
     }
+
+    testPolynomials(polynomials[0], polynomials[1]);
 
     return 0;
 }
